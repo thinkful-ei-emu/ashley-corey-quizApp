@@ -24,19 +24,34 @@ class QuizDisplay extends Renderer {
     `;
   }
 
+  _generateQuiz(questionData) {
+    return `<div>
+    <p>hello ${questionData._questions}</p>    
+    </div>
+    `
+  }
+
+
+
   template() {
     let html = '';
-    
+    console.log(this.model.active);
     if (this.model.asked.length === 0) {
       // Quiz has not started
       html = this._generateIntro();
+    }
+    else if (this.model.active) {
+      console.log('test condition for generteQuiz');
+
+      html = this._generateQuiz(questionData);
+
     }
     
     return html;
   }
 
   handleStart() {
-    this.model.startNewGame();
+    this.model.startGame();
   }
 }
 
