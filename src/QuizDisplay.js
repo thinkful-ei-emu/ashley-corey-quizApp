@@ -5,6 +5,8 @@ class QuizDisplay extends Renderer {
   getEvents() {
     return {
       'click .start-quiz': 'handleStart',
+       'click .submit' : 'handleSubmit',
+
     };
   }
 
@@ -24,11 +26,19 @@ class QuizDisplay extends Renderer {
     `;
   }
 
-  _generateQuiz(questionData) {
+  _generateQuiz() {
+
+
+    console.log(this.model.asked[0].answers);
+
+
+
     return `<div>
-    <p>hello ${questionData._questions}</p>    
-    </div>
-    `
+    <p>hello ${this.model.asked[0].text}</p>
+    <button class="submit">Start Quiz</button>    
+    </div>    `
+
+    
   }
 
 
@@ -43,7 +53,7 @@ class QuizDisplay extends Renderer {
     else if (this.model.active) {
       console.log('test condition for generteQuiz');
 
-      html = this._generateQuiz(questionData);
+      html = this._generateQuiz();
 
     }
     
@@ -52,6 +62,11 @@ class QuizDisplay extends Renderer {
 
   handleStart() {
     this.model.startGame();
+  }
+
+  handleSubmit() {
+    this.model.nextQuestion();
+    this.model.getCurrentQuestion();
   }
 }
 
