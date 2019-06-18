@@ -26,35 +26,29 @@ class QuizDisplay extends Renderer {
   }
 
   _generateQuiz() {
-    if (this.model.asked[0].answers.length <= 2) {
-      return `
-      <p>${this.model.asked[0].text}</p>
-      <input type="radio" name="option" value="1">${this.model.asked[0].answers[0]}<br>
-      <input type="radio" name="option" value="2">${this.model.asked[0].answers[1]}<br>
-      <button>Submit</button>
-      </div>
-      `;
-    } 
+    // if (this.model.asked[0].answers.length <= 2) {
+    //   return `
+    //   <p>${this.model.asked[0].text}</p>
+    //   <input type="radio" name="option" value="1">${this.model.asked[0].answers[0]}<br>
+    //   <input type="radio" name="option" value="2">${this.model.asked[0].answers[1]}<br>
+    //   <button>Submit</button>
+    //   </div>
+    //   `;
+    // } 
+    console.log(this.model.asked);
     return `
         <form role="form" id="input-submit" name="form-submit">
           <p>${this.model.asked[0].text}</p>
-          <input type="radio" name="answer" value="${this.model.asked[0].answers[0]}">${this.model.asked[0].answers[0]}<br>
-          <input type="radio" name="answer" value="${this.model.asked[0].answers[1]}">${this.model.asked[0].answers[1]}<br>
-          <input type="radio" name="answer" value="${this.model.asked[0].answers[2]}">${this.model.asked[0].answers[2]}<br>
-          <input type="radio" name="answer" value="${this.model.asked[0].answers[3]}">${this.model.asked[0].answers[3]}<br>
+          ${this._generateInputs()}
           <button type"submit" value="submit">Button</button>
         </form>
           `;
   }    
   
+  //function for .map over questions
 
-  _gernerateNextQuestion() {
-
-  }
-
-
-  _generateEndOfTest() {
-    
+  _generateInputs() {
+    return this.model.asked[0].answers.map((input,i) => (`<input type="radio" name="answer" value="${this.model.asked[0].answers[i]}">${this.model.asked[0].answers[i]}<br>`)).join('');
   }
 
 
@@ -79,9 +73,10 @@ class QuizDisplay extends Renderer {
   handleSubmit() {
     event.preventDefault();
     console.log(event.target.answer.value);
-    //const valusePosition = event
-    //answerCurrentQuestion();
-    
+    const valuePosition = event.target.answer.value;
+    this.model.answerCurrentQuestion(valuePosition);
+    this.model.nextQuestion();
+    this.model.update();
   }
 
   handleStart() {
