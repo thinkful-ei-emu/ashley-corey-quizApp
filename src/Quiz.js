@@ -37,6 +37,7 @@ class Quiz extends Model {
           this.nextQuestion();
           this.update();
           this.active = true;
+          this.update();
         });
                 
       })
@@ -58,7 +59,7 @@ class Quiz extends Model {
   }
 
   increaseScore() {
-    this.score++;    
+    this.score++;
   }
 
 
