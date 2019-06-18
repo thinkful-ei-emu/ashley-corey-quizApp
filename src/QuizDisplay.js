@@ -36,7 +36,7 @@ class QuizDisplay extends Renderer {
   }
 
   handleStart() {
-    this.model.startNewGame();
+    this.model.startGame();
   }
 }
 
