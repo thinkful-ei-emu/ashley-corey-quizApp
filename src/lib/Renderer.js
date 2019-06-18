@@ -63,8 +63,10 @@ class Renderer {
       const eventKeys = Object.keys(events);
 
       eventKeys.forEach(eventString => {
+        //console.log(eventString);
         const [ eventName, selector ] = eventString.split(' ');
         const fn = this[events[eventString]];
+        //console.log(fn);
         this.$el.on(eventName, selector, fn.bind(this));
       }); 
     }

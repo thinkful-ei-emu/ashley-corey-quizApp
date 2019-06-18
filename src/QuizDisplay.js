@@ -5,6 +5,7 @@ class QuizDisplay extends Renderer {
   getEvents() {
     return {
       'click .start-quiz': 'handleStart',
+      'submit #input-submit': 'handleSubmit'
     };
   }
 
@@ -25,29 +26,24 @@ class QuizDisplay extends Renderer {
   }
 
   _generateQuiz() {
-    // for (let i = 0; i < this.answers.length; i++){
-    //   console.log(this.answers[i]);
-
-    // let answers = asked.answers;
-
-    // if (this.model.asked[0] && this.model.answers.length <= 2) {
-    //   return `
-    //   <p>${this.model.asked[0].text}</p>
-    //   <input type="radio" name="option" value="1">${this.model.asked[0].answers[0]}<br>
-    //   <input type="radio" name="option" value="2">${this.model.asked[0].answers[1]}<br>
-    //   <button>Submit</button>
-    //   </div>
-    //   `;
-    // } else {
+    if (this.model.asked[0].answers.length <= 2) {
+      return `
+      <p>${this.model.asked[0].text}</p>
+      <input type="radio" name="option" value="1">${this.model.asked[0].answers[0]}<br>
+      <input type="radio" name="option" value="2">${this.model.asked[0].answers[1]}<br>
+      <button>Submit</button>
+      </div>
+      `;
+    } 
     return `
-        <div>
+        <form role="form" id="input-submit" name="form-submit">
           <p>${this.model.asked[0].text}</p>
-          <input type="radio" name="option" value="1">${this.model.asked[0].answers[0]}<br>
-          <input type="radio" name="option" value="2">${this.model.asked[0].answers[1]}<br>
-          <input type="radio" name="option" value="3">${this.model.asked[0].answers[2]}<br>
-          <input type="radio" name="option" value="4">${this.model.asked[0].answers[3]}<br>
-          <button>Submit</button>
-        </div>
+          <input type="radio" name="answer" value="${this.model.asked[0].answers[0]}">${this.model.asked[0].answers[0]}<br>
+          <input type="radio" name="answer" value="${this.model.asked[0].answers[1]}">${this.model.asked[0].answers[1]}<br>
+          <input type="radio" name="answer" value="${this.model.asked[0].answers[2]}">${this.model.asked[0].answers[2]}<br>
+          <input type="radio" name="answer" value="${this.model.asked[0].answers[3]}">${this.model.asked[0].answers[3]}<br>
+          <button type"submit" value="submit">Button</button>
+        </form>
           `;
   }    
   
@@ -78,6 +74,14 @@ class QuizDisplay extends Renderer {
     } 
     
     return html;
+  }
+
+  handleSubmit() {
+    event.preventDefault();
+    console.log(event.target.answer.value);
+    //const valusePosition = event
+    //answerCurrentQuestion();
+    
   }
 
   handleStart() {
