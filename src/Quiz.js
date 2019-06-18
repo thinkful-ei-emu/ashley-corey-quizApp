@@ -1,11 +1,14 @@
 import Question from './Question';
 import TriviaApi from './TriviaApi';
+import Model from './lib/Model';
 
-class Quiz {
+class Quiz extends Model {
 
-  static DEFAULT_QUIZ_LENGTH = 5;
+  static DEFAULT_QUIZ_LENGTH = 2;
 
   constructor() {
+
+    super();
     // Array of Question instances
     this.unasked = [];
     // Array of Question instances
@@ -24,6 +27,7 @@ class Quiz {
     this.asked = [];
     this.active = false;
     this.score = 0;
+    this.update();
 
     const triviaApi = new TriviaApi();
     triviaApi.fetchQuestions(Quiz.DEFAULT_QUIZ_LENGTH)
@@ -55,6 +59,8 @@ class Quiz {
     this.score++;    
   }
 
+
+
   answerCurrentQuestion(answerText) {
     const currentQ = this.getCurrentQuestion();
     // Cannot find current question, so fail to answer
@@ -73,6 +79,10 @@ class Quiz {
     return true;
   }
 }
+
+
+const quiz = new Quiz();
+console.log(quiz.answerCurrentQuestion('test')); //see if you get a booleon
 
 export default Quiz;
 
