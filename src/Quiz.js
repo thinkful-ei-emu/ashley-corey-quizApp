@@ -36,6 +36,7 @@ class Quiz extends Model {
           this.unasked.push(new Question(questionData));
           this.nextQuestion();
           this.active = true;
+          this.update();
         });
       })
       .catch(err => console.log(err.message));
@@ -56,7 +57,7 @@ class Quiz extends Model {
   }
 
   increaseScore() {
-    this.score++;    
+    this.score++;
   }
 
 
