@@ -5,7 +5,7 @@ class QuizDisplay extends Renderer {
   getEvents() {
     return {
       'click .start-quiz': 'handleStart',
-       'click .submit' : 'handleSubmit',
+       'submit #form-submit' : 'handleSubmit'
 
     };
   }
@@ -40,17 +40,19 @@ class QuizDisplay extends Renderer {
       <button>Submit</button>
       </div>
       `;
-    } else {
+    } 
+    else {
     return `
-        <div>
+        <form role="form" id="form-submit" name="form-submit">
           <p>${this.model.asked[0].text}</p>
-          <input type="radio" name="option" value="1">${this.model.asked[0].answers[0]}<br>
-          <input type="radio" name="option" value="2">${this.model.asked[0].answers[1]}<br>
-          <input type="radio" name="option" value="3">${this.model.asked[0].answers[2]}<br>
-          <input type="radio" name="option" value="4">${this.model.asked[0].answers[3]}<br>
-          <button>Submit</button>
-        </div>
+          <input type="radio" name="answer" value="1">${this.model.asked[0].answers[0]}<br>
+          <input type="radio" name="answer" value="2">${this.model.asked[0].answers[1]}<br>
+          <input type="radio" name="answer" value="3">${this.model.asked[0].answers[2]}<br>
+          <input type="radio" name="answer" value="4">${this.model.asked[0].answers[3]}<br>
+          <input type="submit" value="submit">
+        </form>
           `;
+  }
   }    
   
 
@@ -62,7 +64,6 @@ class QuizDisplay extends Renderer {
   // _generateEndOfTest() {
     
   // }
-
 
   template() {
     let html = '';
@@ -87,8 +88,10 @@ class QuizDisplay extends Renderer {
   }
 
   handleSubmit() {
-    this.model.nextQuestion();
-    this.model.getCurrentQuestion();
+    // this.model.nextQuestion();
+    // this.model.getCurrentQuestion();
+    event.preventDefault();
+    console.log("hello");
   }
 }
 
