@@ -5,7 +5,9 @@ class QuizDisplay extends Renderer {
   getEvents() {
     return {
       'click .start-quiz': 'handleStart',
-      'submit #input-submit': 'handleSubmit'
+      'submit #input-submit': 'handleSubmit',
+      'click .try-again': 'handleEnd',
+      'click .continue': 'handleNextQuestion'
     };
   }
 
@@ -42,7 +44,45 @@ class QuizDisplay extends Renderer {
         </form>
           `;
   
-  }    
+  }
+  
+  _generateQuizAnswer(){
+
+    // let answerStatusValue =  this.model.getAnswerStatus();
+    // console.log(anserStatusValue);
+
+    if(this.model.getCurrentQuestion().getAnswerStatus() === -1) {
+      return `        
+          <p>${this.model.asked[0].text}</p>
+          <p>Please select an answer</p>
+          <button class="continue">Continue</button>
+       
+          `;
+    }
+    else if(this.model.getCurrentQuestion().getAnswerStatus() === 0) {
+      return `
+        
+          <p>${this.model.asked[0].text}</p>
+          <p>Sorry that was incorrect. You answered:</p>
+          <p>${this.model.asked[0].userAnswer}</p>
+          <p>The correct answer is:</p>
+          <p>${this.model.asked[0].correctAnswer}</p>
+          <button class="continue">Continue</button>       
+          `;
+    }
+    else if(this.model.getCurrentQuestion().getAnswerStatus() === 1) {
+      return `
+        <p>${this.model.asked[0].text}</p>
+        <p>You got it! The correct answer was:</p>      
+        <p>${this.model.asked[0].correctAnswer}</p>
+        <button class="continue">Continue</button>       
+      `;
+    }
+
+    
+    
+
+  }
   
   _generateEndOfQuiz(){
     
@@ -51,11 +91,13 @@ class QuizDisplay extends Renderer {
     <div>
     <p>
       END GAME
-    </p> 
-       
+    </p>       
+  </div>
+  <div>
+  <button class="try-again">Try Again</button>
   </div>
     `
-    //generate button
+   
     
   }
 
@@ -72,12 +114,17 @@ class QuizDisplay extends Renderer {
       // Quiz has not started
       html = this._generateIntro();
     } 
-    else if (this.model.active === true) {
+    if (this.model.active === true) {
       
       html = this._generateQuiz();
     }
-    else if (this.model.asked.length === 5 && this.model.active === false ){
-      console.log('reached end game condition')
+    if (this.model.asked.length > 0 && this.model.asked[0].userAnswer !== null){
+       console.log("hello")
+      html = this._generateQuizAnswer();
+    }
+    if (this.model.asked.length === 5 && this.model.active === false ){
+      console.log(this.model.asked);
+      console.log('reached end game condition');
 
       html = this._generateEndOfQuiz();
     } 
@@ -85,27 +132,42 @@ class QuizDisplay extends Renderer {
     return html;
   }
 
-  handleSubmit() {
-    event.preventDefault();
-    //console.log(event.target.answer.value);
-    const valuePosition = event.target.answer.value;
-    this.model.answerCurrentQuestion(valuePosition);
-    //console.log(this.getAnswerStatus(),'answer status');    
-    this.model.nextQuestion();    
+  handleSubmit(event) {
+    event.preventDefault();   
+    
+    const answer = new FormData(event.target).get('answer')
+    console.log(answer);
+    this.model.answerCurrentQuestion(answer);   
     this.model.update();
-    if(this.model.asked.length === 5){
-      this.model.endGame();
-      this.model.update();
-    }
     
   }
 
+
   handleStart() {
     this.model.startGame();
+    
+  }
+
+  handleNextQuestion() {
+    if (this.model.asked.length < 5){
+      const test = this.model.getCurrentQuestion().getAnswerStatus();
+      console.log(test);
+      this.model.nextQuestion();  
+    }
+    else if(this.model.asked.length === 5){
+      console.log("in submit length condition");
+      this.model.endGame();
+      //this.model.update  
+            
+    }
+    this.model.update();
+
   }
 
   handleEnd() {
+    this.model.startGame();
     //once button is pressed go to  _generateIntro() 
+    //push score into startGame
   }
 }
 
