@@ -4,7 +4,7 @@ import Model from './lib/Model';
 
 class Quiz extends Model {
 
-  static DEFAULT_QUIZ_LENGTH = 2;
+  static DEFAULT_QUIZ_LENGTH = 5;
 
   constructor() {
 
@@ -85,7 +85,7 @@ class Quiz extends Model {
 
 
 const quiz = new Quiz();
-console.log(quiz.answerCurrentQuestion('test')); //see if you get a booleon
+//console.log(quiz.answerCurrentQuestion('test')); //see if you get a booleon
 
 export default Quiz;
 
