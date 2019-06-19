@@ -1,6 +1,7 @@
 import Question from './Question';
 import TriviaApi from './TriviaApi';
 import Model from './lib/Model';
+import { ENGINE_METHOD_PKEY_ASN1_METHS } from 'constants';
 
 class Quiz extends Model {
 
@@ -27,6 +28,8 @@ class Quiz extends Model {
     this.asked = [];
     this.active = false;
     this.score = 0;
+
+  
     
 
     const triviaApi = new TriviaApi();
@@ -42,6 +45,13 @@ class Quiz extends Model {
                 
       })
       .catch(err => console.log(err.message));
+  }
+
+  endGame() {
+    this.unasked,
+    this.asked,
+    this.active = false,
+    this.score
   }
 
   getCurrentQuestion() {
