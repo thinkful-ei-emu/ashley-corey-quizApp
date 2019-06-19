@@ -53,21 +53,10 @@ class QuizDisplay extends Renderer {
   //   }
   // }
 
-<<<<<<< HEAD
-  // _gernerateNextQuestion() {
-
-  // }
-
-
-  // _generateEndOfTest() {
-    
-  // }
-=======
   _generateInputs() {
     return this.model.asked[0].answers.map((input,i) => (`<input type="radio" name="answer" value="${this.model.asked[0].answers[i]}">${this.model.asked[0].answers[i]}<br>`)).join('');
   }
 
->>>>>>> 0cc9aaa76352645d2e6bbacb2ec17827abed38ef
 
   template() {
     let html = '';
@@ -101,18 +90,9 @@ class QuizDisplay extends Renderer {
     this.model.startGame();
   }
 
-<<<<<<< HEAD
-  handleSubmit() {
-    // this.model.nextQuestion();
-    // this.model.getCurrentQuestion();
-    event.preventDefault();
-    console.log("hello");
-  }
-=======
   // handleEnd() {
   //   this.model.endGame();
   // }
->>>>>>> 0cc9aaa76352645d2e6bbacb2ec17827abed38ef
 }
 
 export default QuizDisplay;
