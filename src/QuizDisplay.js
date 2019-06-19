@@ -36,16 +36,21 @@ class QuizDisplay extends Renderer {
     //   `;
     // } 
     console.log(this.model.asked);
+    
     return `
         <form role="form" id="input-submit" name="form-submit">
           <p>${this.model.asked[0].text}</p>
           ${this._generateInputs()}
-          <button type"submit" value="submit">Button</button>
+          <button type"submit" value="submit">Submit</button>
         </form>
           `;
   }    
   
-  //function for .map over questions
+  // _generateEndOfQuiz(){
+  //   if( this.model.asked[0].answer.length === 5 ) {
+  //     return console.log('End Game! You lose! and Win!');
+  //   }
+  // }
 
   _generateInputs() {
     return this.model.asked[0].answers.map((input,i) => (`<input type="radio" name="answer" value="${this.model.asked[0].answers[i]}">${this.model.asked[0].answers[i]}<br>`)).join('');
@@ -72,9 +77,10 @@ class QuizDisplay extends Renderer {
 
   handleSubmit() {
     event.preventDefault();
-    console.log(event.target.answer.value);
+    //console.log(event.target.answer.value);
     const valuePosition = event.target.answer.value;
     this.model.answerCurrentQuestion(valuePosition);
+    //console.log(this.getAnswerStatus(),'answer status');
     this.model.nextQuestion();
     this.model.update();
   }
@@ -82,6 +88,10 @@ class QuizDisplay extends Renderer {
   handleStart() {
     this.model.startGame();
   }
+
+  // handleEnd() {
+  //   this.model.endGame();
+  // }
 }
 
 export default QuizDisplay;

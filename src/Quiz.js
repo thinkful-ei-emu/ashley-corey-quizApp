@@ -85,7 +85,7 @@ class Quiz extends Model {
 
 
 const quiz = new Quiz();
-console.log(quiz.answerCurrentQuestion('test')); //see if you get a booleon
+//console.log(quiz.answerCurrentQuestion('test')); //see if you get a booleon
 
 export default Quiz;
 
