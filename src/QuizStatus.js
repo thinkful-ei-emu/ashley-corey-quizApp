@@ -7,6 +7,20 @@ class QuizStatus extends Renderer {
     
     //write conditionals and instance of quizStatus
     //status.template 
+    this.model.handleScoreHistory()
+    let highScore;
+    if(this.model.scoreHistory.length === 0){ 
+       
+      highScore = 0;
+          
+    }    
+    else {      
+      highScore = this.model.scoreHistory.find(score => score >= this.model.score);
+      
+    }
+    
+    
+    
 
     
     return `
@@ -14,7 +28,7 @@ class QuizStatus extends Renderer {
         <header>
       
           <p>Score: ${this.model.score}</p>
-          <p>High Score: ${this.model.scoreHistory}</p>
+          <p>High Score: ${highScore}</p>
           <p>Progress: ${this.model.asked.length} of 5</p>
 
         </header>
@@ -22,6 +36,8 @@ class QuizStatus extends Renderer {
     `;
 
   }
+
+
 
   
 }

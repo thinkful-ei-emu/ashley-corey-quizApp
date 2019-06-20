@@ -86,15 +86,15 @@ class QuizDisplay extends Renderer {
   
   _generateEndOfQuiz(){
     
-    console.log('End Game! You lose! and Win!');
+    
     return `
     <div>
-    <p>
-      END GAME
-    </p>       
+    <p>Good Job!</p>
+    <p>Your final score was ${this.model.score} out of 5</p>       
+
   </div>
   <div>
-  <button class="try-again">Try Again</button>
+  <button class="try-again">Play Again</button>
   </div>
     `
    
@@ -119,12 +119,14 @@ class QuizDisplay extends Renderer {
       html = this._generateQuiz();
     }
     if (this.model.asked.length > 0 && this.model.asked[0].userAnswer !== null){
-       console.log("hello")
+       
       html = this._generateQuizAnswer();
     }
     if (this.model.asked.length === 5 && this.model.active === false ){
       console.log(this.model.asked);
       console.log('reached end game condition');
+      
+      
 
       html = this._generateEndOfQuiz();
     } 
@@ -133,10 +135,8 @@ class QuizDisplay extends Renderer {
   }
 
   handleSubmit(event) {
-    event.preventDefault();   
-    
-    const answer = new FormData(event.target).get('answer')
-    console.log(answer);
+    event.preventDefault();    
+    const answer = new FormData(event.target).get('answer')    
     this.model.answerCurrentQuestion(answer);   
     this.model.update();
     
@@ -144,20 +144,18 @@ class QuizDisplay extends Renderer {
 
 
   handleStart() {
-    this.model.startGame();
-    
+    this.model.startGame();    
   }
 
   handleNextQuestion() {
-    if (this.model.asked.length < 5){
-      const test = this.model.getCurrentQuestion().getAnswerStatus();
-      console.log(test);
+    if (this.model.asked.length < 5){      
       this.model.nextQuestion();  
     }
-    else if(this.model.asked.length === 5){
-      console.log("in submit length condition");
+
+    else if(this.model.asked.length === 5){     
       this.model.endGame();
-      //this.model.update  
+     
+      
             
     }
     this.model.update();
@@ -165,10 +163,9 @@ class QuizDisplay extends Renderer {
   }
 
   handleEnd() {
-    this.model.startGame();
-    //once button is pressed go to  _generateIntro() 
-    //push score into startGame
+    this.model.startGame();    
   }
+
 }
 
 export default QuizDisplay;

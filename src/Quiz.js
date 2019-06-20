@@ -19,6 +19,7 @@ class Quiz extends Model {
     // TASK: Add more props here per the exercise
     this.score = 0;
     this.scoreHistory = [];
+    
 
   }
 
@@ -28,6 +29,7 @@ class Quiz extends Model {
     this.asked = [];
     this.active = false;
     this.score = 0;
+
 
   
     
@@ -54,6 +56,8 @@ class Quiz extends Model {
     this.score
   }
 
+ 
+
   getCurrentQuestion() {
     return this.asked[0];
   }
@@ -70,6 +74,18 @@ class Quiz extends Model {
 
   increaseScore() {
     this.score++;
+  }
+
+  handleScoreHistory(){
+   
+    if (this.asked.length === 5 && this.active === false) {
+      console.log('hello');
+      this.scoreHistory.push(this.score);
+    }
+      
+
+   
+    
   }
 
 
