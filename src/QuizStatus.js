@@ -25,10 +25,10 @@ class QuizStatus extends Renderer {
     
     return `
       <div>
-        <header>
-      
-          <p>Score: ${this.model.score}</p>
+        <header class="score-header">
+          
           <p>High Score: ${highScore}</p>
+          <p>Score: ${this.model.score}</p>
           <p>Progress: ${this.model.asked.length} of 5</p>
 
         </header>

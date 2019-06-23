@@ -13,16 +13,16 @@ class QuizDisplay extends Renderer {
 
   _generateIntro() {
     return `
-      <div>
+      <div class="splash">
         <p>
           Welcome to the Trivia Quiz
         </p>
         <p>
           Test your smarts and see how high you can score!
         </p>
-      </div>
+        </div>
       <div class="buttons">
-        <button class="start-quiz">Start Quiz</button>
+        <button class="start-quiz" style="color: black;">Start Quiz</button>
       </div>
     `;
   }
@@ -37,10 +37,10 @@ class QuizDisplay extends Renderer {
     // }
     
     return `
-        <form role="form" id="input-submit" name="form-submit">
+        <form class="question" role="form" id="input-submit" name="form-submit">
           <p>${this.model.asked[0].text}</p>
           ${this._generateInputs()}
-          <button type"submit" value="submit">Submit</button>
+          <button class="submit-answer" type"submit" value="submit" style="color: black;">Submit</button>
         </form>
           `;
   
@@ -55,27 +55,32 @@ class QuizDisplay extends Renderer {
       return `        
           <p>${this.model.asked[0].text}</p>
           <p>Please select an answer</p>
-          <button class="continue">Continue</button>
+          <button class="continue" style="color: black;">Continue</button>
        
           `;
     }
     else if(this.model.getCurrentQuestion().getAnswerStatus() === 0) {
       return `
-        
+      <div class="wrapper">
+        <div class="question-review">
           <p>${this.model.asked[0].text}</p>
           <p>Sorry that was incorrect. You answered:</p>
           <p>${this.model.asked[0].userAnswer}</p>
           <p>The correct answer is:</p>
           <p>${this.model.asked[0].correctAnswer}</p>
-          <button class="continue">Continue</button>       
+          <button class="continue" style="color: black;">Continue</button> 
+        </div>
+      </div>      
           `;
     }
     else if(this.model.getCurrentQuestion().getAnswerStatus() === 1) {
       return `
+      <div class="question-review">
         <p>${this.model.asked[0].text}</p>
         <p>You got it! The correct answer was:</p>      
         <p>${this.model.asked[0].correctAnswer}</p>
-        <button class="continue">Continue</button>       
+        <button class="continue" style="color: black;">Continue</button>
+      </div>       
       `;
     }
 
@@ -88,15 +93,14 @@ class QuizDisplay extends Renderer {
     
     
     return `
+    <div class="end">
+      <p>Good Job!</p>
+      <p>Your final score was ${this.model.score} out of 5</p>       
+    </div>
     <div>
-    <p>Good Job!</p>
-    <p>Your final score was ${this.model.score} out of 5</p>       
-
-  </div>
-  <div>
-  <button class="try-again">Play Again</button>
-  </div>
-    `
+      <button class="try-again" style="color: white;">Play Again</button>
+    </div>
+    `;
    
     
   }
@@ -136,7 +140,7 @@ class QuizDisplay extends Renderer {
 
   handleSubmit(event) {
     event.preventDefault();    
-    const answer = new FormData(event.target).get('answer')    
+    const answer = new FormData(event.target).get('answer');    
     this.model.answerCurrentQuestion(answer);   
     this.model.update();
     
