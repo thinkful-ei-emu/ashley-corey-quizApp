@@ -97,8 +97,8 @@ class QuizDisplay extends Renderer {
       <p>Good Job!</p>
       <p>Your final score was ${this.model.score} out of 5</p>       
     </div>
-    <div>
-      <button class="try-again" style="color: white;">Play Again</button>
+    <div class = "buttons">
+      <button class="try-again" style="color: black;">Play Again</button>
     </div>
     `;
    

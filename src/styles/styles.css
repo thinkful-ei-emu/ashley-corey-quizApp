@@ -13,7 +13,7 @@ html{
 }
 
 /* main display for test "welcome and test your smarts and button */
-.splash, .buttons, .try-again{
+.splash, .buttons {
     background-color: black; 
     border: 1px solid purple;
     display: flex;
